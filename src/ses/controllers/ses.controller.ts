@@ -1,4 +1,10 @@
-import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  BadRequestException,
+  HttpCode,
+} from '@nestjs/common';
 import { SesEventDto } from '../dtos/ses-event.dto';
 import { MapperService } from '../mapper/mapper.service';
 import { plainToInstance } from 'class-transformer';
@@ -9,6 +15,7 @@ export class SesController {
   constructor(private readonly mapperService: MapperService) {}
 
   @Post('map')
+  @HttpCode(200)
   async processEvent(@Body() body: any) {
     // Validate the input JSON
     const sesEvent = plainToInstance(SesEventDto, body);
